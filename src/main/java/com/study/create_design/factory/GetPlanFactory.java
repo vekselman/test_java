@@ -13,6 +13,9 @@ public class GetPlanFactory {
         else if(planType.equalsIgnoreCase("COMMERCIALPLAN")){
             return new CommercialPlan();
         }
-        else if(planType.equalsIgnoreCase("INSTI"))
+        else if(planType.equalsIgnoreCase("INSTITUTIONALPLAN")){
+            return new InstitutionalPlan();
+        }
+        return null;
     }
 }

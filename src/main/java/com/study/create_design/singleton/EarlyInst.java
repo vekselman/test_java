@@ -5,7 +5,7 @@ public class EarlyInst {
     private static EarlyInst earlyInst = new EarlyInst();
     // Default private constructor to instantiate class
     // and prevent outside creation
-    private EarlyInst(){};
+    private EarlyInst(){}
 
     // getter of object of EarlyInst class
     public static EarlyInst getEarlyInst() {

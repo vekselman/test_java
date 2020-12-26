@@ -7,7 +7,7 @@ public class LazyInst {
     // so instance of the class is created when required
     private static LazyInst lazyInst;
     // private default constructor
-    private LazyInst(){};
+    private LazyInst(){}
 
     // getter of this class object
     public static LazyInst getInstance(){

@@ -1,9 +1,6 @@
 package com.study.create_design.singleton;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class JDBCSingleton {
     //Step 1
@@ -53,5 +50,30 @@ public class JDBCSingleton {
             if (con != null) con.close();
         }
         return recordCounter;
+    }
+
+    //to view the data from the database
+    public void view(String name) throws SQLException
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            con = this.getConnection();
+            ps = con.prepareStatement("select * from userdata where uname = ?");
+            ps.setString(1,name);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                System.out.println("Name= " + rs.getString(2) +
+                        "\t" + "Password= " + rs.getString(3));
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if(rs != null) rs.close();
+            if(ps != null) ps.close();
+            if(con != null) con.close();
+        }
     }
 }

@@ -50,7 +50,7 @@ public class JDBCSingleton {
             if (con != null) con.close();
         }
         return recordCounter;
-    }
+    } // end of insert method
 
     //to view the data from the database
     public void view(String name) throws SQLException
@@ -75,7 +75,7 @@ public class JDBCSingleton {
             if(ps != null) ps.close();
             if(con != null) con.close();
         }
-    }
+    } // end of view method
 
     // to update the password for the given username
     public int update(String name, String password) throws SQLException  {
@@ -97,5 +97,24 @@ public class JDBCSingleton {
             }
         }
         return recordCounter;
-    }
-}
+    } // end of update method
+    // to delete the data from the database
+    public int delete(int userid) throws SQLException{
+        Connection c=null;
+        PreparedStatement ps=null;
+        int recordCounter=0;
+        try {
+            c=this.getConnection();
+            ps=c.prepareStatement(" delete from userdata where uid='"+userid+"' ");
+            recordCounter=ps.executeUpdate();
+        } catch (Exception e) { e.printStackTrace(); }
+        finally{
+            if (ps!=null){
+                ps.close();
+            }if(c!=null){
+                c.close();
+            }
+        }
+        return recordCounter;
+    } // end of delete method
+} // end of JDBCSingleton class

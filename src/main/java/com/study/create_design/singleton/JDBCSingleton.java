@@ -76,4 +76,26 @@ public class JDBCSingleton {
             if(con != null) con.close();
         }
     }
+
+    // to update the password for the given username
+    public int update(String name, String password) throws SQLException  {
+        Connection c=null;
+        PreparedStatement ps=null;
+
+        int recordCounter=0;
+        try {
+            c=this.getConnection();
+            ps=c.prepareStatement(" update userdata set upassword=? where uname='"+name+"' ");
+            ps.setString(1, password);
+            recordCounter=ps.executeUpdate();
+        } catch (Exception e) {  e.printStackTrace(); } finally{
+
+            if (ps!=null){
+                ps.close();
+            }if(c!=null){
+                c.close();
+            }
+        }
+        return recordCounter;
+    }
 }

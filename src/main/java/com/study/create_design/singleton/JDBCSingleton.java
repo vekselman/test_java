@@ -2,6 +2,7 @@ package com.study.create_design.singleton;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class JDBCSingleton {
@@ -31,4 +32,26 @@ public class JDBCSingleton {
         return con;
     }
 
+    //to insert the record into the database
+    public int insert(String name, String pass) throws SQLException
+    {
+        Connection con = null;
+
+        PreparedStatement ps = null;
+
+        int recordCounter = 0;
+        try{
+            con = this.getConnection();
+            ps = con.prepareStatement("insert into userdata(uname, upassword) values(?,?)");
+            ps.setString(1, name);
+            ps.setString(2,pass);
+            recordCounter = ps.executeUpdate();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (ps != null) ps.close();
+            if (con != null) con.close();
+        }
+        return recordCounter;
+    }
 }
